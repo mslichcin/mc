@@ -249,7 +249,7 @@ src/
     TIOCGWINSZ must be available (<sys/ioctl.h> included), because window-
     resizing code doesn't work, if not defined.
 
-  main.c:
+  main.cpp:
 
     print_usage(): reserved name in the QNX run-time library!
     print_usage() -> print_mc_usage()

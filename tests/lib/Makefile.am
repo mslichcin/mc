@@ -13,7 +13,7 @@ if ENABLE_MCLIB
 LIBS += $(GLIB_LIBS)
 endif
 
-EXTRA_DIST = utilunix__my_system-common.c
+EXTRA_DIST = utilunix__my_system-common.cpp
 
 TESTS = \
 	library_independ \
@@ -32,29 +32,29 @@ endif
 check_PROGRAMS = $(TESTS)
 
 library_independ_SOURCES = \
-	library_independ.c
+	library_independ.cpp
 
 mc_build_filename_SOURCES = \
-	mc_build_filename.c
+	mc_build_filename.cpp
 
 mc_realpath_SOURCES = \
-	mc_realpath.c
+	mc_realpath.cpp
 
 name_quote_SOURCES = \
-	name_quote.c
+	name_quote.cpp
 
 serialize_SOURCES = \
-	serialize.c
+	serialize.cpp
 
 utilunix__my_system_fork_fail_SOURCES = \
-	utilunix__my_system-fork_fail.c
+	utilunix__my_system-fork_fail.cpp
 
 utilunix__my_system_fork_child_shell_SOURCES = \
-	utilunix__my_system-fork_child_shell.c
+	utilunix__my_system-fork_child_shell.cpp
 
 utilunix__my_system_fork_child_SOURCES = \
-	utilunix__my_system-fork_child.c
+	utilunix__my_system-fork_child.cpp
 
 x_basename_SOURCES = \
-	x_basename.c
+	x_basename.cpp
 

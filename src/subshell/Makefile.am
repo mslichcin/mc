@@ -1,9 +1,9 @@
 noinst_LTLIBRARIES = libsubshell.la
 
 libsubshell_la_SOURCES = \
-	common.c \
+	common.cpp \
 	internal.h \
-	proxyfunc.c \
+	proxyfunc.cpp \
 	subshell.h
 
 AM_CPPFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)

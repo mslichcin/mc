@@ -25,19 +25,19 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 glob_prepare_replace_str_SOURCES = \
-	glob_prepare_replace_str.c
+	glob_prepare_replace_str.cpp
 
 regex_replace_esc_seq_SOURCES = \
-	regex_replace_esc_seq.c
+	regex_replace_esc_seq.cpp
 
 regex_process_escape_sequence_SOURCES = \
-	regex_process_escape_sequence.c
+	regex_process_escape_sequence.cpp
 
 translate_replace_glob_to_regex_SOURCES = \
-	translate_replace_glob_to_regex.c
+	translate_replace_glob_to_regex.cpp
 
 glob_translate_to_regex_SOURCES = \
-	glob_translate_to_regex.c
+	glob_translate_to_regex.cpp
 
 hex_translate_to_regex_SOURCES = \
-	hex_translate_to_regex.c
+	hex_translate_to_regex.cpp

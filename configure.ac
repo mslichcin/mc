@@ -7,7 +7,7 @@ AC_INIT([GNU Midnight Commander], [], [mc-devel@gnome.org])
 m4_pattern_forbid(MC_)
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)
-AC_CONFIG_SRCDIR(src/main.c)
+AC_CONFIG_SRCDIR(src/main.cpp)
 AC_CONFIG_HEADERS(config.h)
 mc_VERSION
 AM_INIT_AUTOMAKE(mc, ${VERSION} )
@@ -25,8 +25,7 @@ dnl ############################################################################
 dnl Check for compiler
 dnl ############################################################################
 
-AC_PROG_CC_STDC
-AM_PROG_CC_C_O
+AC_PROG_CXX
 
 mc_CHECK_CFLAGS
 

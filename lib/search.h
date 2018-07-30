@@ -11,22 +11,6 @@
 #include <pcre.h>
 #endif
 
-/*** typedefs(not structures) and defined constants **********************************************/
-
-typedef enum mc_search_cbret_t mc_search_cbret_t;
-
-typedef mc_search_cbret_t (*mc_search_fn) (const void *user_data, gsize char_offset,
-                                           int *current_char);
-typedef mc_search_cbret_t (*mc_update_fn) (const void *user_data, gsize char_offset);
-
-#define MC_SEARCH__NUM_REPLACE_ARGS 64
-
-#ifdef SEARCH_TYPE_GLIB
-#define mc_search_matchinfo_t GMatchInfo
-#else
-#define mc_search_matchinfo_t pcre_extra
-#endif
-
 /*** enums ***************************************************************************************/
 
 typedef enum
@@ -57,6 +41,20 @@ enum mc_search_cbret_t
     MC_SEARCH_CB_SKIP = -3,
     MC_SEARCH_CB_NOTFOUND = -4
 };
+
+/*** typedefs(not structures) and defined constants **********************************************/
+
+typedef mc_search_cbret_t (*mc_search_fn) (const void *user_data, gsize char_offset,
+                                           int *current_char);
+typedef mc_search_cbret_t (*mc_update_fn) (const void *user_data, gsize char_offset);
+
+#define MC_SEARCH__NUM_REPLACE_ARGS 64
+
+#ifdef SEARCH_TYPE_GLIB
+#define mc_search_matchinfo_t GMatchInfo
+#else
+#define mc_search_matchinfo_t pcre_extra
+#endif
 
 /*** structures declarations (and typedefs of structures)*****************************************/
 

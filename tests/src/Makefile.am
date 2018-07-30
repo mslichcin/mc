@@ -27,7 +27,7 @@ if ENABLE_MCLIB
 LIBS += $(GLIB_LIBS)
 endif
 
-EXTRA_DIST = execute__common.c
+EXTRA_DIST = execute__common.cpp
 
 TESTS = \
 	execute__execute_with_vfs_arg \
@@ -37,13 +37,13 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 execute__execute_with_vfs_arg_SOURCES = \
-	execute__execute_with_vfs_arg.c
+	execute__execute_with_vfs_arg.cpp
 
 
 execute__execute_external_editor_or_viewer_SOURCES = \
-	execute__execute_external_editor_or_viewer.c
+	execute__execute_external_editor_or_viewer.cpp
 
 
 execute__execute_get_external_cmd_opts_from_config_SOURCES = \
-	execute__execute_get_external_cmd_opts_from_config.c
+	execute__execute_get_external_cmd_opts_from_config.cpp
 

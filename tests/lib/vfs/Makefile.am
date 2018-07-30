@@ -44,55 +44,55 @@ endif
 check_PROGRAMS = $(TESTS)
 
 canonicalize_pathname_SOURCES = \
-	canonicalize_pathname.c
+	canonicalize_pathname.cpp
 
 current_dir_SOURCES = \
-	current_dir.c
+	current_dir.cpp
 
 path_cmp_SOURCES = \
-	path_cmp.c
+	path_cmp.cpp
 
 path_len_SOURCES = \
-	path_len.c
+	path_len.cpp
 
 path_manipulations_SOURCES = \
-	path_manipulations.c
+	path_manipulations.cpp
 
 path_recode_SOURCES = \
-	path_recode.c
+	path_recode.cpp
 
 path_serialize_SOURCES = \
-	path_serialize.c
+	path_serialize.cpp
 
 relative_cd_SOURCES = \
-	relative_cd.c
+	relative_cd.cpp
 
 tempdir_SOURCES = \
-	tempdir.c
+	tempdir.cpp
 
 vfs_adjust_stat_SOURCES = \
-	vfs_adjust_stat.c
+	vfs_adjust_stat.cpp
 
 vfs_get_encoding_SOURCES = \
-	vfs_get_encoding.c
+	vfs_get_encoding.cpp
 
 vfs_setup_cwd_SOURCES = \
-	vfs_setup_cwd.c
+	vfs_setup_cwd.cpp
 
 vfs_split_SOURCES = \
-	vfs_split.c
+	vfs_split.cpp
 
 vfs_parse_ls_lga_SOURCES = \
-	vfs_parse_ls_lga.c
+	vfs_parse_ls_lga.cpp
 
 vfs_prefix_to_class_SOURCES = \
-	vfs_prefix_to_class.c
+	vfs_prefix_to_class.cpp
 
 vfs_path_from_str_flags_SOURCES = \
-	vfs_path_from_str_flags.c
+	vfs_path_from_str_flags.cpp
 
 vfs_path_string_convert_SOURCES = \
-	vfs_path_string_convert.c
+	vfs_path_string_convert.cpp
 
 vfs_s_get_path_SOURCES = \
-	vfs_s_get_path.c
+	vfs_s_get_path.cpp

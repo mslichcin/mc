@@ -20,7 +20,7 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 replace__str_replace_all_SOURCES = \
-	replace__str_replace_all.c
+	replace__str_replace_all.cpp
 
 parse_integer_SOURCES = \
-	parse_integer.c
+	parse_integer.cpp

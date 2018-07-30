@@ -1,12 +1,12 @@
 noinst_LTLIBRARIES = libsearch.la
 
 libsearch_la_SOURCES = \
-	search.c \
+	search.cpp \
 	internal.h \
-	lib.c \
-	normal.c \
-	regex.c \
-	glob.c \
-	hex.c
+	lib.cpp \
+	normal.cpp \
+	regex.cpp \
+	glob.cpp \
+	hex.cpp
 
 AM_CPPFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(PCRE_CPPFLAGS)

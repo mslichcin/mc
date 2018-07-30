@@ -36,16 +36,16 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 do_cd_command_SOURCES = \
-	do_cd_command.c
+	do_cd_command.cpp
 
 examine_cd_SOURCES = \
-	examine_cd.c
+	examine_cd.cpp
 
 exec_get_export_variables_ext_SOURCES = \
-	exec_get_export_variables_ext.c
+	exec_get_export_variables_ext.cpp
 
 get_random_hint_SOURCES = \
-	get_random_hint.c
+	get_random_hint.cpp
 
 filegui_is_wildcarded_SOURCES = \
-	filegui_is_wildcarded.c
+	filegui_is_wildcarded.cpp

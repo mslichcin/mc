@@ -290,8 +290,8 @@ int vfs_preallocate (int dest_desc, off_t src_fsize, off_t dest_fsize);
 /**
  * Interface functions described in interface.c
  */
-ssize_t mc_read (int handle, void *buffer, size_t count);
-ssize_t mc_write (int handle, const void *buffer, size_t count);
+ssize_t mc_read (int handle, char *buffer, size_t count);
+ssize_t mc_write (int handle, const char *buffer, size_t count);
 int mc_utime (const vfs_path_t * vpath, mc_timesbuf_t * times);
 int mc_readlink (const vfs_path_t * vpath, char *buf, size_t bufsiz);
 int mc_close (int handle);

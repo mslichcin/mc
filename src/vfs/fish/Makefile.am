@@ -9,5 +9,5 @@ AM_CPPFLAGS = \
 noinst_LTLIBRARIES = libvfs-fish.la
 
 libvfs_fish_la_SOURCES = \
-	fish.c fish.h \
+	fish.cpp fish.h \
 	fishdef.h

@@ -61,33 +61,33 @@ mc_LDADD += vfs/smbfs/helpers/libsamba.a
 endif
 
 SRC_mc_conssaver = \
-	cons.handler.c consaver/cons.saver.h
+	cons.handler.cpp consaver/cons.saver.h
 
 mc_SOURCES = \
-	main.c
+	main.cpp
 
 libinternal_la_SOURCES = \
 	$(SRC_mc_conssaver) \
-	args.c args.h \
-	clipboard.c clipboard.h \
-	events_init.c events_init.h \
-	execute.c execute.h \
-	help.c help.h \
+	args.cpp args.h \
+	clipboard.cpp clipboard.h \
+	events_init.cpp events_init.h \
+	execute.cpp execute.h \
+	help.cpp help.h \
 	history.h \
-	keybind-defaults.c keybind-defaults.h \
-	learn.c learn.h \
-	setup.c setup.h \
-	textconf.c textconf.h \
-	usermenu.c usermenu.h \
-	util.c util.h
+	keybind-defaults.cpp keybind-defaults.h \
+	learn.cpp learn.h \
+	setup.cpp setup.h \
+	textconf.cpp textconf.h \
+	usermenu.cpp usermenu.h \
+	util.cpp util.h
 
 if CHARSET
-    libinternal_la_SOURCES += selcodepage.c selcodepage.h
+    libinternal_la_SOURCES += selcodepage.cpp selcodepage.h
 endif
 
 
 if ENABLE_BACKGROUND
-    libinternal_la_SOURCES += background.c background.h
+    libinternal_la_SOURCES += background.cpp background.h
 endif
 
 EXTRA_DIST = $(SRC_maintainer) $(SRC_charset)

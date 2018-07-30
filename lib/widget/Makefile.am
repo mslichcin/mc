@@ -2,25 +2,25 @@
 noinst_LTLIBRARIES = libmcwidget.la
 
 libmcwidget_la_SOURCES = \
-	button.c button.h \
-	buttonbar.c buttonbar.h \
-	check.c check.h \
-	dialog.c dialog.h \
-	dialog-switch.c dialog-switch.h \
-	gauge.c gauge.h \
-	groupbox.c groupbox.h \
-	hline.c hline.h \
-	history.c history.h \
-	input.c input.h \
-	input_complete.c input_complete.h \
-	listbox-window.c listbox-window.h \
-	listbox.c listbox.h \
-	label.c label.h \
-	menu.c menu.h \
-	mouse.c mouse.h \
-	quick.c quick.h \
-	radio.c radio.h \
-	widget-common.c widget-common.h \
-	wtools.c wtools.h
+	button.cpp button.h \
+	buttonbar.cpp buttonbar.h \
+	check.cpp check.h \
+	dialog.cpp dialog.h \
+	dialog-switch.cpp dialog-switch.h \
+	gauge.cpp gauge.h \
+	groupbox.cpp groupbox.h \
+	hline.cpp hline.h \
+	history.cpp history.h \
+	input.cpp input.h \
+	input_complete.cpp input_complete.h \
+	listbox-window.cpp listbox-window.h \
+	listbox.cpp listbox.h \
+	label.cpp label.h \
+	menu.cpp menu.h \
+	mouse.cpp mouse.h \
+	quick.cpp quick.h \
+	radio.cpp radio.h \
+	widget-common.cpp widget-common.h \
+	wtools.cpp wtools.h
 
 AM_CPPFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)

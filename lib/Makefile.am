@@ -24,9 +24,9 @@ SUBLIB_includes = \
 	widget.h
 
 SRC_mc_utils = \
-	utilunix.c utilunix.h \
+	utilunix.cpp utilunix.h \
 	unixcompat.h \
-	util.c util.h
+	util.cpp util.h
 
 
 libmc_la_SOURCES = \
@@ -34,23 +34,23 @@ libmc_la_SOURCES = \
 	$(SRC_mc_utils) \
 	fileloc.h \
 	fs.h \
-	hook.c hook.h \
-	glibcompat.c glibcompat.h \
-	global.c global.h \
-	keybind.c keybind.h \
-	lock.c lock.h \
-	serialize.c serialize.h \
-	shell.c shell.h \
+	hook.cpp hook.h \
+	glibcompat.cpp glibcompat.h \
+	global.cpp global.h \
+	keybind.cpp keybind.h \
+	lock.cpp lock.h \
+	serialize.cpp serialize.h \
+	shell.cpp shell.h \
 	stat-size.h \
-	timefmt.c timefmt.h \
-	timer.c timer.h
+	timefmt.cpp timefmt.h \
+	timer.cpp timer.h
 
 if USE_MAINTAINER_MODE
-libmc_la_SOURCES += logging.c logging.h
+libmc_la_SOURCES += logging.cpp logging.h
 endif
 
 if CHARSET
-libmc_la_SOURCES += charsets.c charsets.h
+libmc_la_SOURCES += charsets.cpp charsets.h
 endif
 
 AM_CPPFLAGS = $(GLIB_CFLAGS) -I$(top_srcdir)

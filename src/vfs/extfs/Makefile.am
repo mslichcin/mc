@@ -9,4 +9,4 @@ AM_CPPFLAGS = \
 noinst_LTLIBRARIES = libvfs-extfs.la
 
 libvfs_extfs_la_SOURCES = \
-	extfs.c extfs.h
+	extfs.cpp extfs.h

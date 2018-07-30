@@ -31,5 +31,5 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 editcmd__edit_complete_word_cmd_SOURCES = \
-	editcmd__edit_complete_word_cmd.c
+	editcmd__edit_complete_word_cmd.cpp
 

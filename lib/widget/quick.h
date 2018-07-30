@@ -13,6 +13,7 @@
 {                                                                               \
     .widget_type = quick_checkbox,                                              \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = id_,                                                                  \
     .u = {                                                                      \
@@ -27,6 +28,7 @@
 {                                                                               \
     .widget_type = quick_button,                                                \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = id_,                                                                  \
     .u = {                                                                      \
@@ -42,6 +44,7 @@
 {                                                                               \
     .widget_type = quick_input,                                                 \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = id_,                                                                  \
     .u = {                                                                      \
@@ -63,6 +66,7 @@
 {                                                                               \
     .widget_type = quick_input,                                                 \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = id_,                                                                  \
     .u = {                                                                      \
@@ -84,6 +88,7 @@
 {                                                                               \
     .widget_type = quick_label,                                                 \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = id_,                                                                  \
     .u = {                                                                      \
@@ -98,6 +103,7 @@
 {                                                                               \
     .widget_type = quick_radio,                                                 \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = id_,                                                                  \
     .u = {                                                                      \
@@ -113,6 +119,7 @@
 {                                                                               \
     .widget_type = quick_start_groupbox,                                        \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
@@ -126,11 +133,18 @@
 {                                                                               \
     .widget_type = quick_stop_groupbox,                                         \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
         .input = {                                                              \
+            .label_text = NULL,                                                 \
+            .label_location = input_label_none,                                 \
+            .label = NULL,                                                      \
             .text = NULL,                                                       \
+            .completion_flags = INPUT_COMPLETE_NONE,                            \
+            .is_passwd = FALSE,                                                 \
+            .strip_passwd = FALSE,                                              \
             .histname = NULL,                                                   \
             .result = NULL                                                      \
         }                                                                       \
@@ -141,6 +155,7 @@
 {                                                                               \
     .widget_type = quick_separator,                                             \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
@@ -155,11 +170,18 @@
 {                                                                               \
     .widget_type = quick_start_columns,                                         \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
         .input = {                                                              \
+            .label_text = NULL,                                                 \
+            .label_location = input_label_none,                                 \
+            .label = NULL,                                                      \
             .text = NULL,                                                       \
+            .completion_flags = INPUT_COMPLETE_NONE,                            \
+            .is_passwd = FALSE,                                                 \
+            .strip_passwd = FALSE,                                              \
             .histname = NULL,                                                   \
             .result = NULL                                                      \
         }                                                                       \
@@ -170,11 +192,18 @@
 {                                                                               \
     .widget_type = quick_next_column,                                           \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
         .input = {                                                              \
+            .label_text = NULL,                                                 \
+            .label_location = input_label_none,                                 \
+            .label = NULL,                                                      \
             .text = NULL,                                                       \
+            .completion_flags = INPUT_COMPLETE_NONE,                            \
+            .is_passwd = FALSE,                                                 \
+            .strip_passwd = FALSE,                                              \
             .histname = NULL,                                                   \
             .result = NULL                                                      \
         }                                                                       \
@@ -185,11 +214,18 @@
 {                                                                               \
     .widget_type = quick_stop_columns,                                          \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
         .input = {                                                              \
+            .label_text = NULL,                                                 \
+            .label_location = input_label_none,                                 \
+            .label = NULL,                                                      \
             .text = NULL,                                                       \
+            .completion_flags = INPUT_COMPLETE_NONE,                            \
+            .is_passwd = FALSE,                                                 \
+            .strip_passwd = FALSE,                                              \
             .histname = NULL,                                                   \
             .result = NULL                                                      \
         }                                                                       \
@@ -200,6 +236,7 @@
 {                                                                               \
     .widget_type = quick_buttons,                                               \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
@@ -219,11 +256,18 @@
 {                                                                               \
     .widget_type = quick_end,                                                   \
     .options = WOP_DEFAULT,                                                     \
+    .state = WST_DEFAULT,                                                       \
     .pos_flags = WPOS_KEEP_DEFAULT,                                             \
     .id = NULL,                                                                 \
     .u = {                                                                      \
         .input = {                                                              \
+            .label_text = NULL,                                                 \
+            .label_location = input_label_none,                                 \
+            .label = NULL,                                                      \
             .text = NULL,                                                       \
+            .completion_flags = INPUT_COMPLETE_NONE,                            \
+            .is_passwd = FALSE,                                                 \
+            .strip_passwd = FALSE,                                              \
             .histname = NULL,                                                   \
             .result = NULL                                                      \
         }                                                                       \

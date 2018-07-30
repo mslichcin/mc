@@ -22,7 +22,7 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 config_string_SOURCES = \
-	config_string.c
+	config_string.cpp
 
 user_configs_path_SOURCES = \
-	user_configs_path.c
+	user_configs_path.cpp

@@ -2,8 +2,8 @@ noinst_LTLIBRARIES = libdiffviewer.la
 
 libdiffviewer_la_SOURCES = \
 	internal.h \
-	search.c \
-	ydiff.c ydiff.h
+	search.cpp \
+	ydiff.cpp ydiff.h
 
 AM_CPPFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(PCRE_CPPFLAGS)
 

@@ -2,22 +2,22 @@
 noinst_LTLIBRARIES = libmcviewer.la
 
 libmcviewer_la_SOURCES = \
-	actions_cmd.c \
-	ascii.c \
-	coord_cache.c \
-	datasource.c \
-	dialogs.c \
-	display.c \
-	growbuf.c \
-	hex.c \
+	actions_cmd.cpp \
+	ascii.cpp \
+	coord_cache.cpp \
+	datasource.cpp \
+	dialogs.cpp \
+	display.cpp \
+	growbuf.cpp \
+	hex.cpp \
 	inlines.h \
 	internal.h \
-	lib.c \
-	mcviewer.c \
+	lib.cpp \
+	mcviewer.cpp \
 	mcviewer.h \
-	move.c \
-	nroff.c \
-	search.c
+	move.cpp \
+	nroff.cpp \
+	search.cpp
 
 AM_CPPFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(PCRE_CPPFLAGS)
 

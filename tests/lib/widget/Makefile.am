@@ -21,4 +21,4 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 complete_engine_SOURCES = \
-	complete_engine.c
+	complete_engine.cpp

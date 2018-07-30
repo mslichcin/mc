@@ -10,7 +10,7 @@ AM_CPPFLAGS = \
 noinst_LTLIBRARIES = libvfs-smbfs.la
 
 libvfs_smbfs_la_SOURCES = \
-	smbfs.c smbfs.h
+	smbfs.cpp smbfs.h
 
 SAMBA_DIST =			\
 	Makefile.in		\
@@ -33,31 +33,31 @@ SAMBA_DIST =			\
 	include/stamp-h.in	\
 	include/trans2.h	\
 	include/version.h	\
-	lib/charcnv.c		\
-	lib/charset.c		\
-	lib/debug.c		\
-	lib/interface.c		\
-	lib/kanji.c		\
-	lib/md4.c		\
-	lib/netmask.c		\
-	lib/slprintf.c		\
-	lib/system.c		\
-	lib/time.c		\
-	lib/username.c		\
-	lib/util.c		\
-	lib/util_file.c		\
-	lib/util_sock.c		\
-	lib/util_str.c		\
-	libsmb/clientgen.c	\
-	libsmb/namequery.c	\
-	libsmb/nmblib.c		\
-	libsmb/nterr.c		\
-	libsmb/pwd_cache.c	\
-	libsmb/smbdes.c		\
-	libsmb/smbencrypt.c	\
-	libsmb/smberr.c		\
-	param/loadparm.c	\
-	param/params.c
+	lib/charcnv.cpp		\
+	lib/charset.cpp		\
+	lib/debug.cpp		\
+	lib/interface.cpp		\
+	lib/kanji.cpp		\
+	lib/md4.cpp		\
+	lib/netmask.cpp		\
+	lib/slprintf.cpp		\
+	lib/system.cpp		\
+	lib/time.cpp		\
+	lib/username.cpp		\
+	lib/util.cpp		\
+	lib/util_file.cpp		\
+	lib/util_sock.cpp		\
+	lib/util_str.cpp		\
+	libsmb/clientgen.cpp	\
+	libsmb/namequery.cpp	\
+	libsmb/nmblib.cpp		\
+	libsmb/nterr.cpp		\
+	libsmb/pwd_cache.cpp	\
+	libsmb/smbdes.cpp		\
+	libsmb/smbencrypt.cpp	\
+	libsmb/smberr.cpp		\
+	param/loadparm.cpp	\
+	param/params.cpp
 
 dist-hook:
 	$(mkinstalldirs) $(distdir)/helpers
