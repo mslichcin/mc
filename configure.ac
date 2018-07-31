@@ -27,6 +27,8 @@ dnl ############################################################################
 
 AC_PROG_CXX
 
+AX_CXX_COMPILE_STDCXX_14(noext, mandatory)
+
 mc_CHECK_CFLAGS
 
 CFLAGS_OPTS=""
@@ -669,8 +671,8 @@ AC_MSG_NOTICE([
 Configuration:
 
   Source code location:       ${srcdir}
-  Compiler:                   ${CC}
-  Compiler flags:             ${CFLAGS}
+  Compiler:                   ${CXX}
+  Compiler flags:             ${CXXFLAGS}
   Assertions:                 ${enable_assert}
   Unit tests:                 ${tests_msg}
   File system:                ${vfs_type}
