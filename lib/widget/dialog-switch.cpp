@@ -117,7 +117,7 @@ static void
 dialog_switch_resize (WDialog * d)
 {
     if (widget_get_state (WIDGET (d), WST_ACTIVE))
-        send_message (d, NULL, MSG_RESIZE, 0, NULL);
+        send_message (d, NULL, widget_msg_t::RESIZE, 0, NULL);
     else
         d->winch_pending = TRUE;
 }

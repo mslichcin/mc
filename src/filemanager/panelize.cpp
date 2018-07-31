@@ -111,8 +111,8 @@ panelize_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
 {
     switch (msg)
     {
-    case MSG_INIT:
-    case MSG_NOTIFY:           /* MSG_NOTIFY is fired by the listbox to tell us the item has changed. */
+    case widget_msg_t::INIT:
+    case widget_msg_t::NOTIFY:           /* widget_msg_t::NOTIFY is fired by the listbox to tell us the item has changed. */
         update_command ();
         return MSG_HANDLED;
 

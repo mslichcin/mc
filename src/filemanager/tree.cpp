@@ -1154,7 +1154,7 @@ tree_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         tree_frame (h, tree);
         show_tree (tree);
         if (widget_get_state (w, WST_FOCUSED))
@@ -1164,7 +1164,7 @@ tree_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
         }
         return MSG_HANDLED;
 
-    case MSG_FOCUS:
+    case widget_msg_t::FOCUS:
         b = find_buttonbar (h);
         buttonbar_set_label (b, 1, Q_ ("ButtonBar|Help"), tree_map, w);
         buttonbar_set_label (b, 2, Q_ ("ButtonBar|Rescan"), tree_map, w);
@@ -1183,18 +1183,18 @@ tree_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
         return MSG_HANDLED;
 
-    case MSG_UNFOCUS:
+    case widget_msg_t::UNFOCUS:
         tree->searching = 0;
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         return tree_key (tree, parm);
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         /* command from buttonbar */
         return tree_execute_cmd (tree, parm);
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         tree_destroy (tree);
         return MSG_HANDLED;
 

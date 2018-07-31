@@ -62,7 +62,7 @@ gauge_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         widget_move (w, 0, 0);
         if (!g->shown)
         {

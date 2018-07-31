@@ -234,7 +234,7 @@ learn_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 {
     switch (msg)
     {
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         return learn_check_key (parm) ? MSG_HANDLED : MSG_NOT_HANDLED;
 
     default:

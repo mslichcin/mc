@@ -1023,7 +1023,7 @@ query_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         switch (parm)
         {
         case KEY_LEFT:

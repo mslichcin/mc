@@ -302,7 +302,7 @@ dlg_handle_key (WDialog * h, int d_key)
     if (command == CK_IgnoreKey)
         return MSG_NOT_HANDLED;
 
-    if (send_message (h, NULL, MSG_ACTION, command, NULL) == MSG_HANDLED
+    if (send_message (h, NULL, widget_msg_t::ACTION, command, NULL) == MSG_HANDLED
         || dlg_execute_cmd (h, command) == MSG_HANDLED)
         return MSG_HANDLED;
 
@@ -416,7 +416,7 @@ dlg_try_hotkey (WDialog * h, int d_key)
 
     handled = MSG_NOT_HANDLED;
     if (widget_get_options (current, WOP_WANT_HOTKEY))
-        handled = send_message (current, NULL, MSG_HOTKEY, d_key, NULL);
+        handled = send_message (current, NULL, widget_msg_t::HOTKEY, d_key, NULL);
 
     /* If not used, send hotkey to other widgets */
     if (handled == MSG_HANDLED)
@@ -431,7 +431,7 @@ dlg_try_hotkey (WDialog * h, int d_key)
 
         if (widget_get_options (current, WOP_WANT_HOTKEY)
             && !widget_get_state (current, WST_DISABLED))
-            handled = send_message (current, NULL, MSG_HOTKEY, d_key, NULL);
+            handled = send_message (current, NULL, widget_msg_t::HOTKEY, d_key, NULL);
 
         if (handled == MSG_NOT_HANDLED)
             hot_cur = dlg_get_widget_next_of (hot_cur);
@@ -472,27 +472,27 @@ dlg_key_event (WDialog * h, int d_key)
     }
 
     /* first can dlg_callback handle the key */
-    handled = send_message (h, NULL, MSG_KEY, d_key, NULL);
+    handled = send_message (h, NULL, widget_msg_t::KEY, d_key, NULL);
 
     /* next try the hotkey */
     if (handled == MSG_NOT_HANDLED)
         handled = dlg_try_hotkey (h, d_key);
 
     if (handled == MSG_HANDLED)
-        send_message (h, NULL, MSG_HOTKEY_HANDLED, 0, NULL);
+        send_message (h, NULL, widget_msg_t::HOTKEY_HANDLED, 0, NULL);
     else
         /* not used - then try widget_callback */
-        handled = send_message (h->current->data, NULL, MSG_KEY, d_key, NULL);
+        handled = send_message (h->current->data, NULL, widget_msg_t::KEY, d_key, NULL);
 
     /* not used- try to use the unhandled case */
     if (handled == MSG_NOT_HANDLED)
-        handled = send_message (h, NULL, MSG_UNHANDLED_KEY, d_key, NULL);
+        handled = send_message (h, NULL, widget_msg_t::UNHANDLED_KEY, d_key, NULL);
 
     if (handled == MSG_NOT_HANDLED)
         handled = dlg_handle_key (h, d_key);
 
     (void) handled;
-    send_message (h, NULL, MSG_POST_KEY, d_key, NULL);
+    send_message (h, NULL, widget_msg_t::POST_KEY, d_key, NULL);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -508,7 +508,7 @@ frontend_dlg_run (WDialog * h)
     /* close opened editors, viewers, etc */
     if (!widget_get_state (wh, WST_MODAL) && mc_global.midnight_shutdown)
     {
-        send_message (h, NULL, MSG_VALIDATE, 0, NULL);
+        send_message (h, NULL, widget_msg_t::VALIDATE, 0, NULL);
         return;
     }
 
@@ -525,7 +525,7 @@ frontend_dlg_run (WDialog * h)
                 execute_hooks (idle_hook);
 
             while (widget_get_state (wh, WST_IDLE) && is_idle ())
-                send_message (wh, NULL, MSG_IDLE, 0, NULL);
+                send_message (wh, NULL, widget_msg_t::IDLE, 0, NULL);
 
             /* Allow terminating the dialog from the idle handler */
             if (!widget_get_state (wh, WST_ACTIVE))
@@ -541,7 +541,7 @@ frontend_dlg_run (WDialog * h)
         dlg_process_event (h, d_key, &event);
 
         if (widget_get_state (wh, WST_CLOSED))
-            send_message (h, NULL, MSG_VALIDATE, 0, NULL);
+            send_message (h, NULL, widget_msg_t::VALIDATE, 0, NULL);
     }
 }
 
@@ -725,7 +725,7 @@ dlg_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         if (h->color != NULL)
         {
             dlg_default_repaint (h);
@@ -733,12 +733,12 @@ dlg_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_IDLE:
+    case widget_msg_t::IDLE:
         /* we don't want endless loop */
         widget_idle (w, FALSE);
         return MSG_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         /* this is default resizing mechanism */
         /* the main idea of this code is to resize dialog
            according to flags (if any of flags require automatic
@@ -891,7 +891,7 @@ add_widget_autopos (WDialog * h, void *w, widget_pos_flags_t pos_flags, const vo
     /* widget has been added at runtime */
     if (widget_get_state (wh, WST_ACTIVE))
     {
-        send_message (widget, NULL, MSG_INIT, 0, NULL);
+        send_message (widget, NULL, widget_msg_t::INIT, 0, NULL);
         widget_select (widget);
     }
     else
@@ -940,7 +940,7 @@ del_widget (void *w)
     h->widgets = g_list_remove_link (h->widgets, d);
     if (h->widgets == NULL)
         h->current = NULL;
-    send_message (d->data, NULL, MSG_DESTROY, 0, NULL);
+    send_message (d->data, NULL, widget_msg_t::DESTROY, 0, NULL);
     g_free (d->data);
     g_list_free_1 (d);
 
@@ -1064,7 +1064,7 @@ update_cursor (WDialog * h)
         w = WIDGET (p->data);
 
         if (!widget_get_state (w, WST_DISABLED) && widget_get_options (w, WOP_WANT_CURSOR))
-            send_message (w, NULL, MSG_CURSOR, 0, NULL);
+            send_message (w, NULL, widget_msg_t::CURSOR, 0, NULL);
         else
             do
             {
@@ -1075,7 +1075,7 @@ update_cursor (WDialog * h)
                 w = WIDGET (p->data);
 
                 if (!widget_get_state (w, WST_DISABLED) && widget_get_options (w, WOP_WANT_CURSOR)
-                    && send_message (w, NULL, MSG_CURSOR, 0, NULL) == MSG_HANDLED)
+                    && send_message (w, NULL, widget_msg_t::CURSOR, 0, NULL) == MSG_HANDLED)
                     break;
             }
             while (TRUE);
@@ -1097,11 +1097,11 @@ dlg_redraw (WDialog * h)
     if (h->winch_pending)
     {
         h->winch_pending = FALSE;
-        send_message (h, NULL, MSG_RESIZE, 0, NULL);
+        send_message (h, NULL, widget_msg_t::RESIZE, 0, NULL);
     }
 
-    send_message (h, NULL, MSG_DRAW, 0, NULL);
-    dlg_broadcast_msg (h, MSG_DRAW);
+    send_message (h, NULL, widget_msg_t::DRAW, 0, NULL);
+    dlg_broadcast_msg (h, widget_msg_t::DRAW);
     update_cursor (h);
 }
 
@@ -1133,8 +1133,8 @@ dlg_init (WDialog * h)
         if (!widget_get_state (wh, WST_MODAL))
             dialog_switch_add (h);
 
-        send_message (h, NULL, MSG_INIT, 0, NULL);
-        dlg_broadcast_msg (h, MSG_INIT);
+        send_message (h, NULL, widget_msg_t::INIT, 0, NULL);
+        dlg_broadcast_msg (h, widget_msg_t::INIT);
         dlg_read_history (h);
     }
 
@@ -1159,7 +1159,7 @@ dlg_process_event (WDialog * h, int key, Gpm_Event * event)
     if (key == EV_NONE)
     {
         if (tty_got_interrupt ())
-            if (send_message (h, NULL, MSG_ACTION, CK_Cancel, NULL) != MSG_HANDLED)
+            if (send_message (h, NULL, widget_msg_t::ACTION, CK_Cancel, NULL) != MSG_HANDLED)
                 dlg_execute_cmd (h, CK_Cancel);
     }
     else if (key == EV_MOUSE)
@@ -1178,7 +1178,7 @@ dlg_run_done (WDialog * h)
 
     if (widget_get_state (WIDGET (h), WST_CLOSED))
     {
-        send_message (h, h->current->data, MSG_END, 0, NULL);
+        send_message (h, h->current->data, widget_msg_t::END, 0, NULL);
         if (!widget_get_state (WIDGET (h), WST_MODAL))
             dialog_switch_remove (h);
     }
@@ -1208,7 +1208,7 @@ dlg_destroy (WDialog * h)
 {
     /* if some widgets have history, save all history at one moment here */
     dlg_save_history (h);
-    dlg_broadcast_msg (h, MSG_DESTROY);
+    dlg_broadcast_msg (h, widget_msg_t::DESTROY);
     g_list_free_full (h->widgets, g_free);
     mc_event_group_del (h->event_group);
     g_free (h->event_group);

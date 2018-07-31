@@ -67,7 +67,7 @@ button_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
 
     switch (msg)
     {
-    case MSG_HOTKEY:
+    case widget_msg_t::HOTKEY:
         /*
          * Don't let the default button steal Enter from the current
          * button.  This is a workaround for the flawed event model
@@ -76,24 +76,24 @@ button_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
          */
         if (parm == '\n' && WIDGET (h->current->data) == w)
         {
-            send_message (w, sender, MSG_KEY, ' ', data);
+            send_message (w, sender, widget_msg_t::KEY, ' ', data);
             return MSG_HANDLED;
         }
 
         if (parm == '\n' && b->flags == DEFPUSH_BUTTON)
         {
-            send_message (w, sender, MSG_KEY, ' ', data);
+            send_message (w, sender, widget_msg_t::KEY, ' ', data);
             return MSG_HANDLED;
         }
 
         if (b->text.hotkey != NULL && g_ascii_tolower ((gchar) b->text.hotkey[0]) == parm)
         {
-            send_message (w, sender, MSG_KEY, ' ', data);
+            send_message (w, sender, widget_msg_t::KEY, ' ', data);
             return MSG_HANDLED;
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         if (parm != ' ' && parm != '\n')
             return MSG_NOT_HANDLED;
 
@@ -103,7 +103,7 @@ button_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
 
         return MSG_HANDLED;
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         switch (b->flags)
         {
         case DEFPUSH_BUTTON:
@@ -123,7 +123,7 @@ button_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
         widget_move (w, 0, b->hotpos + off);
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         {
             gboolean focused;
 
@@ -168,7 +168,7 @@ button_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
             return MSG_HANDLED;
         }
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         release_hotkey (b->text);
         return MSG_HANDLED;
 
@@ -191,8 +191,8 @@ button_mouse_default_callback (Widget * w, mouse_msg_t msg, mouse_event_t * even
         break;
 
     case MSG_MOUSE_CLICK:
-        send_message (w, NULL, MSG_KEY, ' ', NULL);
-        send_message (w->owner, w, MSG_POST_KEY, ' ', NULL);
+        send_message (w, NULL, widget_msg_t::KEY, ' ', NULL);
+        send_message (w->owner, w, widget_msg_t::POST_KEY, ' ', NULL);
         break;
 
     default:

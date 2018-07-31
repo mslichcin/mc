@@ -226,15 +226,15 @@ widget_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
 
     switch (msg)
     {
-    case MSG_INIT:
-    case MSG_FOCUS:
-    case MSG_UNFOCUS:
-    case MSG_ENABLE:
-    case MSG_DISABLE:
-    case MSG_DRAW:
-    case MSG_DESTROY:
-    case MSG_CURSOR:
-    case MSG_IDLE:
+    case widget_msg_t::INIT:
+    case widget_msg_t::FOCUS:
+    case widget_msg_t::UNFOCUS:
+    case widget_msg_t::ENABLE:
+    case widget_msg_t::DISABLE:
+    case widget_msg_t::DRAW:
+    case widget_msg_t::DESTROY:
+    case widget_msg_t::CURSOR:
+    case widget_msg_t::IDLE:
         return MSG_HANDLED;
 
     default:
@@ -300,22 +300,22 @@ widget_set_state (Widget * w, widget_state_t state, gboolean enable)
     switch (state)
     {
     case WST_DISABLED:
-        ret = send_message (w, NULL, enable ? MSG_DISABLE : MSG_ENABLE, 0, NULL);
+        ret = send_message (w, NULL, enable ? widget_msg_t::DISABLE : widget_msg_t::ENABLE, 0, NULL);
         if (ret == MSG_HANDLED && widget_get_state (WIDGET (w->owner), WST_ACTIVE))
-            ret = send_message (w, NULL, MSG_DRAW, 0, NULL);
+            ret = send_message (w, NULL, widget_msg_t::DRAW, 0, NULL);
         break;
 
     case WST_FOCUSED:
         {
             widget_msg_t msg;
 
-            msg = enable ? MSG_FOCUS : MSG_UNFOCUS;
+            msg = enable ? widget_msg_t::FOCUS : widget_msg_t::UNFOCUS;
             ret = send_message (w, NULL, msg, 0, NULL);
             if (ret == MSG_HANDLED && widget_get_state (WIDGET (w->owner), WST_ACTIVE))
             {
-                send_message (w, NULL, MSG_DRAW, 0, NULL);
+                send_message (w, NULL, widget_msg_t::DRAW, 0, NULL);
                 /* Notify owner that focus was moved from one widget to another */
-                send_message (w->owner, w, MSG_CHANGED_FOCUS, 0, NULL);
+                send_message (w->owner, w, widget_msg_t::CHANGED_FOCUS, 0, NULL);
             }
         }
         break;
@@ -336,9 +336,9 @@ widget_set_size (Widget * widget, int y, int x, int lines, int cols)
     widget->y = y;
     widget->cols = cols;
     widget->lines = lines;
-    send_message (widget, NULL, MSG_RESIZE, 0, NULL);
+    send_message (widget, NULL, widget_msg_t::RESIZE, 0, NULL);
     if (widget->owner != NULL && widget_get_state (WIDGET (widget->owner), WST_ACTIVE))
-        send_message (widget, NULL, MSG_DRAW, 0, NULL);
+        send_message (widget, NULL, widget_msg_t::DRAW, 0, NULL);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -402,7 +402,7 @@ widget_redraw (Widget * w)
         WDialog *h = w->owner;
 
         if (h != NULL && widget_get_state (WIDGET (h), WST_ACTIVE))
-            w->callback (w, NULL, MSG_DRAW, 0, NULL);
+            w->callback (w, NULL, widget_msg_t::DRAW, 0, NULL);
     }
 }
 
@@ -458,8 +458,8 @@ widget_replace (Widget * old_w, Widget * new_w)
     new_w->id = old_w->id;
     holder->data = new_w;
 
-    send_message (old_w, NULL, MSG_DESTROY, 0, NULL);
-    send_message (new_w, NULL, MSG_INIT, 0, NULL);
+    send_message (old_w, NULL, widget_msg_t::DESTROY, 0, NULL);
+    send_message (new_w, NULL, widget_msg_t::INIT, 0, NULL);
 
     if (should_focus)
         widget_select (new_w);

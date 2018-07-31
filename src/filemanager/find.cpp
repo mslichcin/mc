@@ -468,12 +468,12 @@ static cb_ret_t
 find_parm_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data)
 {
     /* FIXME: HACK: use first draw of dialog to resolve widget state dependencies.
-     * Use this time moment to check input field content. We can't do that in MSG_INIT
+     * Use this time moment to check input field content. We can't do that in widget_msg_t::INIT
      * because history is not loaded yet.
-     * Probably, we want new MSG_ACTIVATE message as complement to MSG_VALIDATE one. Or
-     * we could name it MSG_POST_INIT.
+     * Probably, we want new widget_msg_t::ACTIVATE message as complement to widget_msg_t::VALIDATE one. Or
+     * we could name it widget_msg_t::POST_INIT.
      *
-     * In one or two other places we use MSG_IDLE instead of MSG_DRAW for a similar
+     * In one or two other places we use widget_msg_t::IDLE instead of widget_msg_t::DRAW for a similar
      * purpose. We should remember to fix those places too when we introduce the new
      * message.
      */
@@ -483,11 +483,11 @@ find_parm_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         first_draw = TRUE;
         return MSG_HANDLED;
 
-    case MSG_NOTIFY:
+    case widget_msg_t::NOTIFY:
         if (sender == WIDGET (ignore_dirs_cbox))
         {
             find_toggle_enable_ignore_dirs ();
@@ -496,7 +496,7 @@ find_parm_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
 
         return MSG_NOT_HANDLED;
 
-    case MSG_VALIDATE:
+    case widget_msg_t::VALIDATE:
         if (h->ret_value != B_ENTER)
             return MSG_HANDLED;
 
@@ -524,14 +524,14 @@ find_parm_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
 
         return MSG_HANDLED;
 
-    case MSG_POST_KEY:
+    case widget_msg_t::POST_KEY:
         if (h->current->data == in_name)
             find_toggle_enable_params ();
         else if (h->current->data == in_with)
             find_toggle_enable_content ();
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         if (first_draw)
         {
             find_toggle_enable_ignore_dirs ();
@@ -540,7 +540,7 @@ find_parm_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
         }
 
         first_draw = FALSE;
-        MC_FALLTHROUGH;         /* to call MSG_DRAW default handler */
+        MC_FALLTHROUGH;         /* to call widget_msg_t::DRAW default handler */
 
     default:
         return dlg_default_callback (w, sender, msg, parm, data);
@@ -1519,7 +1519,7 @@ find_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
     switch (msg)
     {
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         if (parm == KEY_F (3) || parm == KEY_F (13))
         {
             gboolean unparsed_view = (parm == KEY_F (13));
@@ -1530,12 +1530,12 @@ find_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
             return view_edit_currently_selected_file (FALSE, TRUE);
         return MSG_NOT_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         dlg_set_size (h, LINES - 4, COLS - 16);
         find_relocate_buttons (h, TRUE);
         return MSG_HANDLED;
 
-    case MSG_IDLE:
+    case widget_msg_t::IDLE:
         do_search (h);
         return MSG_HANDLED;
 

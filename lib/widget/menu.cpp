@@ -342,7 +342,7 @@ menubar_execute (WMenuBar * menubar)
 
         mc_global.widget.is_right = (menubar->selected != 0);
         menubar_finish (menubar);
-        send_message (w->owner, w, MSG_ACTION, entry->command, NULL);
+        send_message (w->owner, w, widget_msg_t::ACTION, entry->command, NULL);
         do_refresh ();
     }
 }
@@ -608,7 +608,7 @@ menubar_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
     switch (msg)
     {
         /* We do not want the focus unless we have been activated */
-    case MSG_FOCUS:
+    case widget_msg_t::FOCUS:
         if (menubar_refresh (menubar))
         {
             menubar_draw (menubar);
@@ -616,12 +616,12 @@ menubar_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_UNFOCUS:
+    case widget_msg_t::UNFOCUS:
         return widget_get_state (w, WST_FOCUSED) ? MSG_NOT_HANDLED : MSG_HANDLED;
 
         /* We don't want the buttonbar to activate while using the menubar */
-    case MSG_HOTKEY:
-    case MSG_KEY:
+    case widget_msg_t::HOTKEY:
+    case widget_msg_t::KEY:
         if (widget_get_state (w, WST_FOCUSED))
         {
             menubar_handle_key (menubar, parm);
@@ -629,21 +629,21 @@ menubar_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         /* Put the cursor in a suitable place */
         return MSG_NOT_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         if (menubar->is_visible || menubar_refresh (menubar))
             menubar_draw (menubar);
         return MSG_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         /* try show menu after screen resize */
         menubar_refresh (menubar);
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         menubar_free_menu (menubar);
         return MSG_HANDLED;
 

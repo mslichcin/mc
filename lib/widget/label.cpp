@@ -64,7 +64,7 @@ label_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         {
             char *p = l->text;
             int y = 0;
@@ -109,7 +109,7 @@ label_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             return MSG_HANDLED;
         }
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         g_free (l->text);
         return MSG_HANDLED;
 

@@ -128,7 +128,7 @@ configure_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
 {
     switch (msg)
     {
-    case MSG_NOTIFY:
+    case widget_msg_t::NOTIFY:
         /* message from "Single press" checkbutton */
         if (sender != NULL && sender->id == configure_old_esc_mode_id)
         {
@@ -187,7 +187,7 @@ skin_dlg_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
 {
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         {
             WDialog *d = DIALOG (w);
             Widget *wd = WIDGET (d->data);
@@ -226,7 +226,7 @@ sel_skin_button (WButton * button, int action)
     skin_dlg->data = WIDGET (button)->owner;
 
     /* set dialog location before all */
-    send_message (skin_dlg, NULL, MSG_RESIZE, 0, NULL);
+    send_message (skin_dlg, NULL, widget_msg_t::RESIZE, 0, NULL);
 
     skin_list = listbox_new (1, 1, 11, 22, FALSE, NULL);
     skin_name = "default";
@@ -278,7 +278,7 @@ panel_listing_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm,
 
     switch (msg)
     {
-    case MSG_NOTIFY:
+    case widget_msg_t::NOTIFY:
         if (sender != NULL && sender->id == panel_list_formats_id)
         {
             WCheck *ch;
@@ -371,7 +371,7 @@ tree_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         {
             Widget *bar;
 
@@ -383,8 +383,8 @@ tree_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
             return MSG_HANDLED;
         }
 
-    case MSG_ACTION:
-        return send_message (find_tree (h), NULL, MSG_ACTION, parm, NULL);
+    case widget_msg_t::ACTION:
+        return send_message (find_tree (h), NULL, widget_msg_t::ACTION, parm, NULL);
 
     default:
         return dlg_default_callback (w, sender, msg, parm, data);
@@ -399,7 +399,7 @@ confvfs_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
 {
     switch (msg)
     {
-    case MSG_NOTIFY:
+    case widget_msg_t::NOTIFY:
         /* message from "Always use ftp proxy" checkbutton */
         if (sender != NULL && sender->id == ftpfs_always_use_proxy_id)
         {

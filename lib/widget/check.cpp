@@ -58,31 +58,31 @@ check_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_HOTKEY:
+    case widget_msg_t::HOTKEY:
         if (c->text.hotkey != NULL)
         {
             if (g_ascii_tolower ((gchar) c->text.hotkey[0]) == parm)
             {
                 /* make action */
-                send_message (w, sender, MSG_KEY, ' ', data);
+                send_message (w, sender, widget_msg_t::KEY, ' ', data);
                 return MSG_HANDLED;
             }
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         if (parm != ' ')
             return MSG_NOT_HANDLED;
         c->state = !c->state;
         widget_redraw (w);
-        send_message (w->owner, w, MSG_NOTIFY, 0, NULL);
+        send_message (w->owner, w, widget_msg_t::NOTIFY, 0, NULL);
         return MSG_HANDLED;
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         widget_move (w, 0, 1);
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         {
             gboolean focused;
 
@@ -94,7 +94,7 @@ check_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             return MSG_HANDLED;
         }
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         release_hotkey (c->text);
         return MSG_HANDLED;
 
@@ -117,8 +117,8 @@ check_mouse_callback (Widget * w, mouse_msg_t msg, mouse_event_t * event)
         break;
 
     case MSG_MOUSE_CLICK:
-        send_message (w, NULL, MSG_KEY, ' ', NULL);
-        send_message (w->owner, w, MSG_POST_KEY, ' ', NULL);
+        send_message (w, NULL, widget_msg_t::KEY, ' ', NULL);
+        send_message (w->owner, w, widget_msg_t::POST_KEY, ' ', NULL);
         break;
 
     default:

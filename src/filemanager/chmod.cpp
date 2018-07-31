@@ -219,11 +219,11 @@ chmod_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         chmod_refresh (h);
         return MSG_HANDLED;
 
-    case MSG_NOTIFY:
+    case widget_msg_t::NOTIFY:
         {
             /* handle checkboxes */
             int i;
@@ -248,7 +248,7 @@ chmod_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
         return MSG_NOT_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         if (parm == 'T' || parm == 't' || parm == KEY_IC)
         {
             int i;

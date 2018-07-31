@@ -59,7 +59,7 @@ radio_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_HOTKEY:
+    case widget_msg_t::HOTKEY:
         for (i = 0; i < r->count; i++)
         {
             if (r->texts[i].hotkey != NULL)
@@ -72,19 +72,19 @@ radio_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
                 r->pos = i;
 
                 /* Take action */
-                send_message (w, sender, MSG_KEY, ' ', data);
+                send_message (w, sender, widget_msg_t::KEY, ' ', data);
                 return MSG_HANDLED;
             }
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         switch (parm)
         {
         case ' ':
             r->sel = r->pos;
             widget_set_state (w, WST_FOCUSED, TRUE);    /* Also draws the widget. */
-            send_message (w->owner, w, MSG_NOTIFY, 0, NULL);
+            send_message (w->owner, w, widget_msg_t::NOTIFY, 0, NULL);
             return MSG_HANDLED;
 
         case KEY_UP:
@@ -111,11 +111,11 @@ radio_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             return MSG_NOT_HANDLED;
         }
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         widget_move (r, r->pos, 1);
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         {
             gboolean focused;
 
@@ -133,7 +133,7 @@ radio_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             return MSG_HANDLED;
         }
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         for (i = 0; i < r->count; i++)
             release_hotkey (r->texts[i]);
         g_free (r->texts);
@@ -158,8 +158,8 @@ radio_mouse_callback (Widget * w, mouse_msg_t msg, mouse_event_t * event)
 
     case MSG_MOUSE_CLICK:
         RADIO (w)->pos = event->y;
-        send_message (w, NULL, MSG_KEY, ' ', NULL);
-        send_message (w->owner, w, MSG_POST_KEY, ' ', NULL);
+        send_message (w, NULL, widget_msg_t::KEY, ' ', NULL);
+        send_message (w->owner, w, widget_msg_t::POST_KEY, ' ', NULL);
         break;
 
     default:

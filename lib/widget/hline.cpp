@@ -61,8 +61,8 @@ hline_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_INIT:
-    case MSG_RESIZE:
+    case widget_msg_t::INIT:
+    case widget_msg_t::RESIZE:
         if (l->auto_adjust_cols)
         {
             Widget *wo = WIDGET (h);
@@ -80,7 +80,7 @@ hline_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
         }
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         if (l->transparent)
             tty_setcolor (DEFAULT_COLOR);
         else
@@ -106,7 +106,7 @@ hline_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
         }
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         g_free (l->text);
         return MSG_HANDLED;
 

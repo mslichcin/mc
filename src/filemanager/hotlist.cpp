@@ -572,15 +572,15 @@ hotlist_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
 
     switch (msg)
     {
-    case MSG_INIT:
-    case MSG_NOTIFY:           /* MSG_NOTIFY is fired by the listbox to tell us the item has changed. */
+    case widget_msg_t::INIT:
+    case widget_msg_t::NOTIFY:           /* widget_msg_t::NOTIFY is fired by the listbox to tell us the item has changed. */
         update_path_name ();
         return MSG_HANDLED;
 
-    case MSG_UNHANDLED_KEY:
+    case widget_msg_t::UNHANDLED_KEY:
         return hotlist_handle_key (h, parm);
 
-    case MSG_POST_KEY:
+    case widget_msg_t::POST_KEY:
         /*
          * The code here has two purposes:
          *
@@ -611,7 +611,7 @@ hotlist_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
         }
         return MSG_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         /* simply call dlg_set_size() with new size */
         dlg_set_size (h, LINES - (h == hotlist_dlg ? 2 : 6), COLS - 6);
         return MSG_HANDLED;
@@ -647,7 +647,7 @@ hotlist_listbox_callback (WListbox * list)
             else
             {
                 hotlist_button_callback (NULL, B_ENTER);
-                send_message (dlg, NULL, MSG_POST_KEY, '\n', NULL);
+                send_message (dlg, NULL, widget_msg_t::POST_KEY, '\n', NULL);
                 return LISTBOX_CONT;
             }
         }
@@ -660,7 +660,7 @@ hotlist_listbox_callback (WListbox * list)
     }
 
     hotlist_button_callback (NULL, B_UP_GROUP);
-    send_message (dlg, NULL, MSG_POST_KEY, 'u', NULL);
+    send_message (dlg, NULL, widget_msg_t::POST_KEY, 'u', NULL);
     return LISTBOX_CONT;
 }
 

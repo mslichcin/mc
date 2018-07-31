@@ -773,17 +773,17 @@ edit_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         edit_dlg_init ();
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         /* don't use dlg_default_repaint() -- we don't need a frame */
         tty_setcolor (EDITOR_BACKGROUND);
         dlg_erase (h);
         return MSG_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         menubar = find_menubar (h);
         buttonbar = find_buttonbar (h);
         /* dlg_set_size() is surplus for this case */
@@ -795,7 +795,7 @@ edit_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
         g_list_foreach (h->widgets, (GFunc) edit_dialog_resize_cb, NULL);
         return MSG_HANDLED;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         {
             /* Handle shortcuts, menu, and buttonbar. */
 
@@ -806,12 +806,12 @@ edit_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
             /* We forward any commands coming from the menu, and which haven't been
                handled by the dialog, to the focused WEdit window. */
             if (result == MSG_NOT_HANDLED && sender == WIDGET (find_menubar (h)))
-                result = send_message (h->current->data, NULL, MSG_ACTION, parm, NULL);
+                result = send_message (h->current->data, NULL, widget_msg_t::ACTION, parm, NULL);
 
             return result;
         }
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         {
             Widget *we = WIDGET (h->current->data);
             cb_ret_t ret = MSG_NOT_HANDLED;
@@ -851,20 +851,20 @@ edit_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
         }
 
         /* hardcoded menu hotkeys (see edit_drop_hotkey_menu) */
-    case MSG_UNHANDLED_KEY:
+    case widget_msg_t::UNHANDLED_KEY:
         return edit_drop_hotkey_menu (h, parm) ? MSG_HANDLED : MSG_NOT_HANDLED;
 
-    case MSG_VALIDATE:
+    case widget_msg_t::VALIDATE:
         edit_quit (h);
         return MSG_HANDLED;
 
-    case MSG_END:
+    case widget_msg_t::END:
         edit_dlg_deinit ();
         return MSG_HANDLED;
 
-    case MSG_IDLE:
+    case widget_msg_t::IDLE:
         widget_idle (w, FALSE);
-        return send_message (h->current->data, NULL, MSG_IDLE, 0, NULL);
+        return send_message (h->current->data, NULL, widget_msg_t::IDLE, 0, NULL);
 
     default:
         return dlg_default_callback (w, sender, msg, parm, data);
@@ -923,7 +923,7 @@ edit_dialog_mouse_callback (Widget * w, mouse_msg_t msg, mouse_event_t * event)
                 if (event->x - x <= 2)
                     edit_toggle_fullscreen (e);
                 else
-                    send_message (h, NULL, MSG_ACTION, CK_Close, NULL);
+                    send_message (h, NULL, widget_msg_t::ACTION, CK_Close, NULL);
 
                 unhandled = FALSE;
             }
@@ -946,16 +946,16 @@ edit_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
     switch (msg)
     {
-    case MSG_FOCUS:
+    case widget_msg_t::FOCUS:
         edit_set_buttonbar (e, find_buttonbar (w->owner));
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         e->force |= REDRAW_COMPLETELY;
         edit_update_screen (e);
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         {
             int cmd, ch;
             cb_ret_t ret = MSG_NOT_HANDLED;
@@ -976,13 +976,13 @@ edit_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
             return ret;
         }
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         /* command from menubar or buttonbar */
         edit_execute_key_command (e, parm, -1);
         edit_update_screen (e);
         return MSG_HANDLED;
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         {
             int y, x;
 
@@ -994,11 +994,11 @@ edit_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
             return MSG_HANDLED;
         }
 
-    case MSG_IDLE:
+    case widget_msg_t::IDLE:
         edit_update_screen (e);
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         edit_clean (e);
         return MSG_HANDLED;
 
@@ -1144,7 +1144,7 @@ edit_mouse_callback (Widget * w, mouse_msg_t msg, mouse_event_t * event)
         if (event->y == 0)
         {
             if (event->x >= close_x - 1 && event->x <= close_x + 1)
-                send_message (w->owner, NULL, MSG_ACTION, CK_Close, NULL);
+                send_message (w->owner, NULL, widget_msg_t::ACTION, CK_Close, NULL);
             else if (event->x >= toggle_fullscreen_x - 1 && event->x <= toggle_fullscreen_x + 1)
                 edit_toggle_fullscreen (edit);
             else if (!edit->fullscreen && event->count == GPM_DOUBLE)

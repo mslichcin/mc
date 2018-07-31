@@ -3655,14 +3655,14 @@ panel_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         /* subscribe to "history_load" event */
         mc_event_add (w->owner->event_group, MCEVENT_HISTORY_LOAD, panel_load_history, w, NULL);
         /* subscribe to "history_save" event */
         mc_event_add (w->owner->event_group, MCEVENT_HISTORY_SAVE, panel_save_history, w, NULL);
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         /* Repaint everything, including frame and separator */
         widget_erase (w);
         show_dir (panel);
@@ -3674,7 +3674,7 @@ panel_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
         panel->dirty = 0;
         return MSG_HANDLED;
 
-    case MSG_FOCUS:
+    case widget_msg_t::FOCUS:
         state_mark = -1;
         current_panel = panel;
         panel->active = 1;
@@ -3699,20 +3699,20 @@ panel_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
         widget_redraw (WIDGET (bb));
         return MSG_HANDLED;
 
-    case MSG_UNFOCUS:
+    case widget_msg_t::UNFOCUS:
         /* Janne: look at this for the multiple panel options */
         stop_search (panel);
         panel->active = 0;
         unselect_item (panel);
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         return panel_key (panel, parm);
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         return panel_execute_cmd (panel, parm);
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         /* unsubscribe from "history_load" event */
         mc_event_del (w->owner->event_group, MCEVENT_HISTORY_LOAD, panel_load_history, w);
         /* unsubscribe from "history_save" event */
@@ -3853,7 +3853,7 @@ panel_mouse_callback (Widget * w, mouse_msg_t msg, mouse_event_t * event)
                 directory_history_list (panel);
             else if (event->x == w->cols - 6)
                 /* "." button show/hide hidden files */
-                send_message (midnight_dlg, NULL, MSG_ACTION, CK_ShowHidden, NULL);
+                send_message (midnight_dlg, NULL, widget_msg_t::ACTION, CK_ShowHidden, NULL);
             else
             {
                 /* no other events on 1st line, return MOU_UNHANDLED */

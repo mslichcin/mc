@@ -346,14 +346,14 @@ perm_button_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
 
     switch (msg)
     {
-    case MSG_FOCUS:
+    case widget_msg_t::FOCUS:
         if (b->hotpos == -1)
             b->hotpos = 0;
 
         flag_pos = f_pos * 3 + b->hotpos;
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         switch (parm)
         {
         case '*':
@@ -366,7 +366,7 @@ perm_button_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, v
             flag_pos = f_pos * 3 + b->hotpos;
             ch_flags[flag_pos] = parm;
             update_mode (w->owner);
-            send_message (w, NULL, MSG_KEY, KEY_RIGHT, NULL);
+            send_message (w, NULL, widget_msg_t::KEY, KEY_RIGHT, NULL);
             if (b->hotpos == 2)
                 dlg_select_next_widget (w->owner);
             break;
@@ -487,7 +487,7 @@ chl_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *dat
 {
     switch (msg)
     {
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         switch (parm)
         {
         case KEY_LEFT:
@@ -662,12 +662,12 @@ advanced_chown_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         advanced_chown_refresh (h);
         advanced_chown_info_update ();
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         switch (parm)
         {
         case ALT ('x'):
@@ -684,7 +684,7 @@ advanced_chown_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
                 ch_flags[i * 3 + parm - 3] = (x_toggle & (1 << parm)) ? '-' : '+';
             x_toggle ^= (1 << parm);
             update_mode (h);
-            dlg_broadcast_msg (h, MSG_DRAW);
+            dlg_broadcast_msg (h, widget_msg_t::DRAW);
             break;
 
         case XCTRL ('x'):
@@ -701,7 +701,7 @@ advanced_chown_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
                 ch_flags[i * 3 + parm] = (x_toggle & (1 << parm)) ? '-' : '+';
             x_toggle ^= (1 << parm);
             update_mode (h);
-            dlg_broadcast_msg (h, MSG_DRAW);
+            dlg_broadcast_msg (h, widget_msg_t::DRAW);
             break;
 
         default:

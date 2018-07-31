@@ -655,39 +655,39 @@ mcview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         if (mcview_is_in_panel (view))
             add_hook (&select_file_hook, mcview_hook, view);
         else
             view->dpy_bbar_dirty = TRUE;
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         mcview_display (view);
         return MSG_HANDLED;
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         if (view->mode_flags.hex)
             mcview_place_cursor (view);
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         i = mcview_handle_key (view, parm);
         mcview_update (view);
         return i;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         i = mcview_execute_cmd (view, parm);
         mcview_update (view);
         return i;
 
-    case MSG_FOCUS:
+    case widget_msg_t::FOCUS:
         view->dpy_bbar_dirty = TRUE;
-        /* TODO: get rid of draw here before MSG_DRAW */
+        /* TODO: get rid of draw here before widget_msg_t::DRAW */
         mcview_update (view);
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         if (mcview_is_in_panel (view))
         {
             delete_hook (&select_file_hook, mcview_hook);
@@ -695,14 +695,14 @@ mcview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *
             /*
              * In some cases when mc startup is very slow and one panel is in quick vew mode,
              * @view is registered in two hook lists at the same time:
-             *   mcview_callback (MSG_INIT) -> add_hook (&select_file_hook)
+             *   mcview_callback (widget_msg_t::INIT) -> add_hook (&select_file_hook)
              *   mcview_hook () -> add_hook (&idle_hook).
              * If initialization of file manager is not completed yet, but user switches
              * panel mode from qick view to another one (by pressing C-x q), the following
              * occurs:
              *   view hook is deleted from select_file_hook list via following call chain:
              *      set_display_type (view_listing) -> widget_replace () ->
-             *      send_message (MSG_DESTROY) -> mcview_callback (MSG_DESTROY) ->
+             *      send_message (widget_msg_t::DESTROY) -> mcview_callback (widget_msg_t::DESTROY) ->
              *      delete_hook (&select_file_hook);
              *   @view object is free'd:
              *      set_display_type (view_listing) -> g_free (old_widget);
@@ -735,18 +735,18 @@ mcview_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm,
 
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         mcview_adjust_size (h);
         return MSG_HANDLED;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         /* Handle shortcuts. */
 
         /* Note: the buttonbar sends messages directly to the the WView, not to
          * here, which is why we can pass NULL in the following call. */
         return mcview_execute_cmd (NULL, parm);
 
-    case MSG_VALIDATE:
+    case widget_msg_t::VALIDATE:
         view = (WView *) find_widget_type (h, mcview_callback);
         /* don't stop the dialog before final decision */
         widget_set_state (WIDGET (h), WST_ACTIVE, TRUE);

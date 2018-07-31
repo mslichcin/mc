@@ -152,7 +152,7 @@ buttonbar_call (WButtonBar * bb, int i)
     if ((bb != NULL) && (bb->labels[i].command != CK_IgnoreKey))
     {
         target = (bb->labels[i].receiver != NULL) ? bb->labels[i].receiver : WIDGET (w->owner);
-        ret = send_message (target, w, MSG_ACTION, bb->labels[i].command, NULL);
+        ret = send_message (target, w, widget_msg_t::ACTION, bb->labels[i].command, NULL);
     }
     return ret;
 }
@@ -167,13 +167,13 @@ buttonbar_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
 
     switch (msg)
     {
-    case MSG_HOTKEY:
+    case widget_msg_t::HOTKEY:
         for (i = 0; i < BUTTONBAR_LABELS_NUM; i++)
             if (parm == KEY_F (i + 1) && buttonbar_call (bb, i))
                 return MSG_HANDLED;
         return MSG_NOT_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         if (bb->visible)
         {
             buttonbar_init_button_positions (bb);
@@ -201,7 +201,7 @@ buttonbar_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, voi
         }
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         for (i = 0; i < BUTTONBAR_LABELS_NUM; i++)
             g_free (bb->labels[i].text);
         return MSG_HANDLED;

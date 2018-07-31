@@ -309,7 +309,7 @@ layout_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         /* When repainting the whole dialog (e.g. with C-l) we have to
            update everything */
         dlg_default_repaint (h);
@@ -329,7 +329,7 @@ layout_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *
         }
         return MSG_HANDLED;
 
-    case MSG_POST_KEY:
+    case widget_msg_t::POST_KEY:
         {
             int _menubar_visible, _command_prompt, _keybar_visible, _message_visible;
 
@@ -369,7 +369,7 @@ layout_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *
         }
         return MSG_HANDLED;
 
-    case MSG_NOTIFY:
+    case widget_msg_t::NOTIFY:
         if (sender == WIDGET (radio_widget))
         {
             if (panels_layout.horizontal_split != radio_widget->sel)

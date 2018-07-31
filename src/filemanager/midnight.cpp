@@ -1097,7 +1097,7 @@ midnight_execute_cmd (Widget * sender, long command)
     (void) sender;
 
     /* stop quick search before executing any command */
-    send_message (current_panel, NULL, MSG_ACTION, CK_SearchStop, NULL);
+    send_message (current_panel, NULL, widget_msg_t::ACTION, CK_SearchStop, NULL);
 
     switch (command)
     {
@@ -1236,7 +1236,7 @@ midnight_execute_cmd (Widget * sender, long command)
         break;
     case CK_History:
         /* show the history of command line widget */
-        send_message (cmdline, NULL, MSG_ACTION, CK_History, NULL);
+        send_message (cmdline, NULL, widget_msg_t::ACTION, CK_History, NULL);
         break;
     case CK_PanelInfo:
         if (sender == WIDGET (the_menubar))
@@ -1324,7 +1324,7 @@ midnight_execute_cmd (Widget * sender, long command)
     case CK_Select:
     case CK_Unselect:
     case CK_SelectInvert:
-        res = send_message (current_panel, midnight_dlg, MSG_ACTION, command, NULL);
+        res = send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, command, NULL);
         break;
     case CK_Shell:
         view_other_cmd ();
@@ -1430,7 +1430,7 @@ handle_cmdline_enter (void)
 
     if (cmdline->buffer[i] != '\0')
     {
-        send_message (cmdline, NULL, MSG_KEY, '\n', NULL);
+        send_message (cmdline, NULL, widget_msg_t::KEY, '\n', NULL);
         return TRUE;
     }
 
@@ -1449,12 +1449,12 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         panel_init ();
         setup_panels ();
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         load_hint (TRUE);
         /* We handle the special case of the output lines */
         if (mc_global.tty.console_flag != '\0' && output_lines)
@@ -1463,7 +1463,7 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
                                    1, LINES - mc_global.keybar_visible - 1);
         return MSG_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         /* dlg_set_size() is surplus for this case */
         w->lines = LINES;
         w->cols = COLS;
@@ -1471,7 +1471,7 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
         menubar_arrange (the_menubar);
         return MSG_HANDLED;
 
-    case MSG_IDLE:
+    case widget_msg_t::IDLE:
         /* We only need the first idle event to show user menu after start */
         widget_idle (w, FALSE);
 
@@ -1484,7 +1484,7 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
             midnight_execute_cmd (NULL, CK_UserMenu);
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         if (ctl_x_map_enabled)
         {
             ctl_x_map_enabled = FALSE;
@@ -1512,14 +1512,14 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
             {
                 /* Special treatement, since the input line will eat them */
                 if (parm == '+')
-                    return send_message (current_panel, midnight_dlg, MSG_ACTION, CK_Select, NULL);
+                    return send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, CK_Select, NULL);
 
                 if (parm == '\\' || parm == '-')
-                    return send_message (current_panel, midnight_dlg, MSG_ACTION, CK_Unselect,
+                    return send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, CK_Unselect,
                                          NULL);
 
                 if (parm == '*')
-                    return send_message (current_panel, midnight_dlg, MSG_ACTION, CK_SelectInvert,
+                    return send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, CK_SelectInvert,
                                          NULL);
             }
             else if (!command_prompt || cmdline->buffer[0] == '\0')
@@ -1528,28 +1528,28 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
                  * first char on input line
                  */
                 if (parm == '+')
-                    return send_message (current_panel, midnight_dlg, MSG_ACTION, CK_Select, NULL);
+                    return send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, CK_Select, NULL);
 
                 if (parm == '\\' || parm == '-')
-                    return send_message (current_panel, midnight_dlg, MSG_ACTION, CK_Unselect,
+                    return send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, CK_Unselect,
                                          NULL);
 
                 if (parm == '*')
-                    return send_message (current_panel, midnight_dlg, MSG_ACTION, CK_SelectInvert,
+                    return send_message (current_panel, midnight_dlg, widget_msg_t::ACTION, CK_SelectInvert,
                                          NULL);
             }
         }
         return MSG_NOT_HANDLED;
 
-    case MSG_HOTKEY_HANDLED:
+    case widget_msg_t::HOTKEY_HANDLED:
         if ((get_current_type () == view_listing) && current_panel->searching)
         {
             current_panel->dirty = 1;   /* FIXME: unneeded? */
-            send_message (current_panel, NULL, MSG_ACTION, CK_SearchStop, NULL);
+            send_message (current_panel, NULL, widget_msg_t::ACTION, CK_SearchStop, NULL);
         }
         return MSG_HANDLED;
 
-    case MSG_UNHANDLED_KEY:
+    case widget_msg_t::UNHANDLED_KEY:
         {
             cb_ret_t v = MSG_NOT_HANDLED;
 
@@ -1565,21 +1565,21 @@ midnight_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
                 v = midnight_execute_cmd (NULL, command);
 
             if (v == MSG_NOT_HANDLED && command_prompt && !is_cmdline_mute ())
-                v = send_message (cmdline, NULL, MSG_KEY, parm, NULL);
+                v = send_message (cmdline, NULL, widget_msg_t::KEY, parm, NULL);
 
             return v;
         }
 
-    case MSG_POST_KEY:
+    case widget_msg_t::POST_KEY:
         if (!widget_get_state (WIDGET (the_menubar), WST_FOCUSED))
             update_dirty_panels ();
         return MSG_HANDLED;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         /* Handle shortcuts, menu, and buttonbar. */
         return midnight_execute_cmd (sender, parm);
 
-    case MSG_END:
+    case widget_msg_t::END:
         panel_deinit ();
         return MSG_HANDLED;
 

@@ -59,7 +59,7 @@ groupbox_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
 
     switch (msg)
     {
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         {
             WDialog *h = w->owner;
 
@@ -78,7 +78,7 @@ groupbox_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void
             return MSG_HANDLED;
         }
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         g_free (g->title);
         return MSG_HANDLED;
 

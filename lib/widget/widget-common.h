@@ -25,30 +25,29 @@
 /*** enums ***************************************************************************************/
 
 /* Widget messages */
-typedef enum
-{
-    MSG_INIT = 0,               /* Initialize widget */
-    MSG_FOCUS,                  /* Draw widget in focused state or widget has got focus */
-    MSG_UNFOCUS,                /* Draw widget in unfocused state or widget has been unfocused */
-    MSG_CHANGED_FOCUS,          /* Notification to owner about focus state change */
-    MSG_ENABLE,                 /* Change state to enabled */
-    MSG_DISABLE,                /* Change state to disabled */
-    MSG_DRAW,                   /* Draw widget on screen */
-    MSG_KEY,                    /* Sent to widgets on key press */
-    MSG_HOTKEY,                 /* Sent to widget to catch preprocess key */
-    MSG_HOTKEY_HANDLED,         /* A widget has got the hotkey */
-    MSG_UNHANDLED_KEY,          /* Key that no widget handled */
-    MSG_POST_KEY,               /* The key has been handled */
-    MSG_ACTION,                 /* Send to widget to handle command */
-    MSG_NOTIFY,                 /* Typically sent to dialog to inform it of state-change
-                                 * of listboxes, check- and radiobuttons. */
-    MSG_CURSOR,                 /* Sent to widget to position the cursor */
-    MSG_IDLE,                   /* The idle state is active */
-    MSG_RESIZE,                 /* Screen size has changed */
-    MSG_VALIDATE,               /* Dialog is to be closed */
-    MSG_END,                    /* Shut down dialog */
-    MSG_DESTROY                 /* Sent to widget at destruction time */
-} widget_msg_t;
+enum class widget_msg_t {
+    INIT = 0,               /* Initialize widget */
+    FOCUS,                  /* Draw widget in focused state or widget has got focus */
+    UNFOCUS,                /* Draw widget in unfocused state or widget has been unfocused */
+    CHANGED_FOCUS,          /* Notification to owner about focus state change */
+    ENABLE,                 /* Change state to enabled */
+    DISABLE,                /* Change state to disabled */
+    DRAW,                   /* Draw widget on screen */
+    KEY,                    /* Sent to widgets on key press */
+    HOTKEY,                 /* Sent to widget to catch preprocess key */
+    HOTKEY_HANDLED,         /* A widget has got the hotkey */
+    UNHANDLED_KEY,          /* Key that no widget handled */
+    POST_KEY,               /* The key has been handled */
+    ACTION,                 /* Send to widget to handle command */
+    NOTIFY,                 /* Typically sent to dialog to inform it of state-change
+                             * of listboxes, check- and radiobuttons. */
+    CURSOR,                 /* Sent to widget to position the cursor */
+    IDLE,                   /* The idle state is active */
+    RESIZE,                 /* Screen size has changed */
+    VALIDATE,               /* Dialog is to be closed */
+    END,                    /* Shut down dialog */
+    DESTROY                 /* Sent to widget at destruction time */
+};
 
 /* Widgets are expected to answer to the following messages:
    MSG_FOCUS:   MSG_HANDLED if the accept the focus, MSG_NOT_HANDLED if they do not.

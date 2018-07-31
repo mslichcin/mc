@@ -618,7 +618,7 @@ help_help (WDialog * h)
     {
         currentpoint = p + 1;   /* Skip the newline following the start of the node */
         selected_item = NULL;
-        send_message (h, NULL, MSG_DRAW, 0, NULL);
+        send_message (h, NULL, widget_msg_t::DRAW, 0, NULL);
     }
 }
 
@@ -641,7 +641,7 @@ help_index (WDialog * h)
 
         currentpoint = new_item + 1;    /* Skip the newline following the start of the node */
         selected_item = NULL;
-        send_message (h, NULL, MSG_DRAW, 0, NULL);
+        send_message (h, NULL, widget_msg_t::DRAW, 0, NULL);
     }
 }
 
@@ -656,7 +656,7 @@ help_back (WDialog * h)
     if (history_ptr < 0)
         history_ptr = HISTORY_SIZE - 1;
 
-    send_message (h, NULL, MSG_DRAW, 0, NULL);  /* FIXME: unneeded? */
+    send_message (h, NULL, widget_msg_t::DRAW, 0, NULL);  /* FIXME: unneeded? */
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -855,7 +855,7 @@ help_handle_key (WDialog * h, int c)
     if ((command == CK_IgnoreKey) || (help_execute_cmd (command) == MSG_NOT_HANDLED))
         return MSG_NOT_HANDLED;
 
-    send_message (h, NULL, MSG_DRAW, 0, NULL);
+    send_message (h, NULL, widget_msg_t::DRAW, 0, NULL);
     return MSG_HANDLED;
 }
 
@@ -868,7 +868,7 @@ help_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         {
             WButtonBar *bb;
 
@@ -879,15 +879,15 @@ help_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
             return MSG_HANDLED;
         }
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         dlg_default_repaint (h);
         help_show (h, currentpoint);
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         return help_handle_key (h, parm);
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         /* Handle shortcuts and buttonbar. */
         return help_execute_cmd (parm);
 
@@ -942,7 +942,7 @@ md_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *data
 {
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         w->lines = help_lines;
         return MSG_HANDLED;
 
@@ -1016,7 +1016,7 @@ help_mouse_callback (Widget * w, mouse_msg_t msg, mouse_event_t * event)
         move_forward (1);
 
     /* Show the new node */
-    send_message (w->owner, NULL, MSG_DRAW, 0, NULL);
+    send_message (w->owner, NULL, widget_msg_t::DRAW, 0, NULL);
 }
 
 /* --------------------------------------------------------------------------------------------- */

@@ -3308,18 +3308,18 @@ dview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         dview_labels (dview);
         dview_load_options (dview);
         dview_update (dview);
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         dview->new_frame = TRUE;
         dview_update (dview);
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         i = dview_handle_key (dview, parm);
         if (dview->view_quit)
             dlg_stop (h);
@@ -3327,7 +3327,7 @@ dview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             dview_update (dview);
         return i;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         i = dview_execute_cmd (dview, parm);
         if (dview->view_quit)
             dlg_stop (h);
@@ -3335,7 +3335,7 @@ dview_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             dview_update (dview);
         return i;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         dview_save_options (dview);
         dview_fini (dview);
         return MSG_HANDLED;
@@ -3399,18 +3399,18 @@ dview_dialog_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, 
 
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         dview_adjust_size (h);
         return MSG_HANDLED;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         /* Handle shortcuts. */
 
         /* Note: the buttonbar sends messages directly to the the WDiff, not to
          * here, which is why we can pass NULL in the following call. */
         return dview_execute_cmd (NULL, parm);
 
-    case MSG_VALIDATE:
+    case widget_msg_t::VALIDATE:
         dview = (WDiff *) find_widget_type (h, dview_callback);
         /* don't stop the dialog before final decision */
         widget_set_state (w, WST_ACTIVE, TRUE);

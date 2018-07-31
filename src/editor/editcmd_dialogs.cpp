@@ -75,7 +75,7 @@ editcmd_dialog_raw_key_query_cb (Widget * w, Widget * sender, widget_msg_t msg, 
 
     switch (msg)
     {
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         h->ret_value = parm;
         dlg_stop (h);
         return MSG_HANDLED;

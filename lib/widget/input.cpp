@@ -1039,7 +1039,7 @@ input_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         /* subscribe to "history_load" event */
         mc_event_add (w->owner->event_group, MCEVENT_HISTORY_LOAD, input_load_history, w, NULL);
         /* subscribe to "history_save" event */
@@ -1048,7 +1048,7 @@ input_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
             widget_set_state (WIDGET (in->label), WST_DISABLED, widget_get_state (w, WST_DISABLED));
         return MSG_HANDLED;
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         if (parm == XCTRL ('q'))
         {
             quote = TRUE;
@@ -1073,24 +1073,24 @@ input_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *d
 
         return input_handle_char (in, parm);
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         return input_execute_cmd (in, parm);
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         input_update (in, FALSE);
         return MSG_HANDLED;
 
-    case MSG_ENABLE:
-    case MSG_DISABLE:
+    case widget_msg_t::ENABLE:
+    case widget_msg_t::DISABLE:
         if (in->label != NULL)
-            widget_set_state (WIDGET (in->label), WST_DISABLED, msg == MSG_DISABLE);
+            widget_set_state (WIDGET (in->label), WST_DISABLED, msg == widget_msg_t::DISABLE);
         return MSG_HANDLED;
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         widget_move (in, 0, str_term_width2 (in->buffer, in->point) - in->term_first_shown);
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         /* unsubscribe from "history_load" event */
         mc_event_del (w->owner->event_group, MCEVENT_HISTORY_LOAD, input_load_history, w);
         /* unsubscribe from "history_save" event */

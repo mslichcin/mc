@@ -69,7 +69,7 @@ query_default_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm,
 
     switch (msg)
     {
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         if ((w->pos_flags & WPOS_CENTER) == 0)
         {
             WDialog *prev_dlg = NULL;
@@ -127,7 +127,7 @@ do_create_message (int flags, const char *title, const char *text)
     d = last_query_dlg;
 
     /* do resize before initing and running */
-    send_message (d, NULL, MSG_RESIZE, 0, NULL);
+    send_message (d, NULL, widget_msg_t::RESIZE, 0, NULL);
 
     dlg_init (d);
     g_free (p);
@@ -337,7 +337,7 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
         va_end (ap);
 
         /* do resize before running and selecting any widget */
-        send_message (query_dlg, NULL, MSG_RESIZE, 0, NULL);
+        send_message (query_dlg, NULL, widget_msg_t::RESIZE, 0, NULL);
 
         if (defbutton != NULL)
             widget_select (WIDGET (defbutton));

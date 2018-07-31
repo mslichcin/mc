@@ -398,7 +398,7 @@ static void
 listbox_on_change (WListbox * l)
 {
     listbox_draw (l, TRUE);
-    send_message (WIDGET (l)->owner, l, MSG_NOTIFY, l->pos, NULL);
+    send_message (WIDGET (l)->owner, l, widget_msg_t::NOTIFY, l->pos, NULL);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -453,7 +453,7 @@ listbox_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
 
     switch (msg)
     {
-    case MSG_HOTKEY:
+    case widget_msg_t::HOTKEY:
         {
             int pos;
 
@@ -466,28 +466,28 @@ listbox_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
             return MSG_HANDLED;
         }
 
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         ret_code = listbox_key (l, parm);
         if (ret_code != MSG_NOT_HANDLED)
             listbox_on_change (l);
         return ret_code;
 
-    case MSG_ACTION:
+    case widget_msg_t::ACTION:
         return listbox_execute_cmd (l, parm);
 
-    case MSG_CURSOR:
+    case widget_msg_t::CURSOR:
         widget_move (l, l->cursor_y, 0);
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         listbox_draw (l, widget_get_state (w, WST_FOCUSED));
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         listbox_destroy (l);
         return MSG_HANDLED;
 
-    case MSG_RESIZE:
+    case widget_msg_t::RESIZE:
         return MSG_HANDLED;
 
     default:

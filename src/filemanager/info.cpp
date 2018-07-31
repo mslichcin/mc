@@ -309,17 +309,17 @@ info_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void *da
 
     switch (msg)
     {
-    case MSG_INIT:
+    case widget_msg_t::INIT:
         init_my_statfs ();
         add_hook (&select_file_hook, info_hook, info);
         info->ready = FALSE;
         return MSG_HANDLED;
 
-    case MSG_DRAW:
+    case widget_msg_t::DRAW:
         info_hook (info);
         return MSG_HANDLED;
 
-    case MSG_DESTROY:
+    case widget_msg_t::DESTROY:
         delete_hook (&select_file_hook, info_hook);
         free_my_statfs ();
         return MSG_HANDLED;

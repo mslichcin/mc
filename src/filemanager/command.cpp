@@ -347,7 +347,7 @@ command_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm, void 
 {
     switch (msg)
     {
-    case MSG_KEY:
+    case widget_msg_t::KEY:
         /* Special case: we handle the enter key */
         if (parm == '\n')
             return enter (INPUT (w));
